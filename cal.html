@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button1{
+background: Lime;
+border-bottom: 5px solid black;
+border-radius: 12px;
+border-color: black;
+color: black;
+font-weight: bold;
+margin: 12px 0;
+padding: 9px 16px;
+}
+.frms input[type="text"], select {
+background: none repeat scroll 0 0 white;
+border: 1px solid Gainsboro;
+border-radius: 10px;
+height: 35px;
+margin-bottom: 15px;
+margin-top: 5px;
+padding: 0.05px;
+width: 99%;
+}
+.div {
+background: none repeat scroll 0 0 LightGreen  ;
+border: 1px solid Gainsboro;
+border-radius: 10px;
+font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+margin: 5px 10px 10px 20%;
+overflow: auto;
+padding: 10px 20px;
+width:50%;
+}
+.td{
+color: black;
+font-size:14px;
+}
+</style>
+</head>
+
+<script>
+var cneed;
+var fneed;
+var crneed;
+var pneed;
+var aneed;
+var fd;
+function cc()
+{
+var age=parseInt(document.getElementById("age").value);
+var cm =document.getElementById("cen").value;
+var weight=document.getElementById("weight").value;
+if (age!='' && cm!='' && weight!='') {
+
+weight=parseInt(weight);
+weight=Math.round(weight/2.2046);
+var active=document.getElementById("active").value;
+
+
+if(document.getElementById("gen").checked)//female or male
+{
+fd=(10*weight)+(6.25*cm)-(5*age)+5;
+}
+else
+{
+fd=(10*weight)+(6.25*cm)-(5*age)-161;
+}
+
+
+switch(active)
+{
+case "1":
+cneed=fd*1.2;
+break;
+case "2":
+cneed=fd*1.375
+break;
+case "3":
+cneed=fd*1.53;
+break;
+case "4":
+cneed=fd*1.725;
+break;
+case "5":
+cneed=fd*1.9;
+break;
+}
+cneed=Math.floor(cneed);
+fneed=Math.floor((cneed*0.25)/9);
+
+pneed=Math.floor((cneed*0.25)/4);
+
+crneed=Math.floor((cneed*0.25)/4);
+
+aneed=Math.floor((cneed*0.25)/7);
+
+document.getElementById("rc").value=" "+cneed;
+document.getElementById("rf").value=" "+fneed;
+document.getElementById("rp").value=" "+pneed;
+document.getElementById("rh").value=" "+crneed;
+document.getElementById("ra").value=" "+aneed;
+document.getElementById("l1").innerHTML="grams";
+document.getElementById("l2").innerHTML="grams";
+document.getElementById("l3").innerHTML="grams";
+document.getElementById("l4").innerHTML="grams";
+var caltype=document.getElementById("caltype").value;
+if (caltype=='g') {
+document.getElementById("l1").innerHTML="grams";
+document.getElementById("l2").innerHTML="grams";
+document.getElementById("l3").innerHTML="grams";
+document.getElementById("l4").innerHTML="grams";
+}
+
+if (caltype=='kg') {
+fat2 = fneed / 1000;
+pro2 = pneed / 1000;
+car2 = crneed / 1000;
+alh2 = aneed / 1000;
+fat2=fat2.toFixed(3);
+pro2 = pro2.toFixed(3);
+car2 = car2.toFixed(3);
+alh2 = alh2.toFixed(3);
+document.getElementById("rf").value=" "+fat2;
+document.getElementById("rp").value=" "+pro2;
+document.getElementById("rh").value=" "+car2;
+document.getElementById("ra").value=" "+alh2;
+document.getElementById("l1").innerHTML="kilogram";
+document.getElementById("l2").innerHTML="kilogram";
+document.getElementById("l3").innerHTML="kilogram";
+document.getElementById("l4").innerHTML="kilogram";
+}
+}
+else{
+alert("Please fill your details properly!");
+}
+}
+
+
+function convert() {
+var age=parseInt(document.getElementById("age").value);
+var cm =document.getElementById("cen").value;
+var weight=document.getElementById("weight").value;
+if (age!='' && cm!='' && weight!='') {
+var caltype=document.getElementById("caltype").value;
+var fat = document.getElementById("rf").value;
+var pro = document.getElementById("rp").value;
+var car = document.getElementById("rh").value;
+var alh = document.getElementById("ra").value;
+if (caltype=='g') {
+document.getElementById("rc").value=" "+cneed;
+document.getElementById("rf").value=" "+fneed;
+document.getElementById("rp").value=" "+pneed;
+document.getElementById("rh").value=" "+crneed;
+document.getElementById("ra").value=" "+aneed;
+}
+
+if (caltype=='kg') {
+fat2 = fneed / 1000;
+pro2 = pneed / 1000;
+car2 = crneed / 1000;
+alh2 = aneed / 1000;
+fat2=fat2.toFixed(3);
+pro2 = pro2.toFixed(3);
+car2 = car2.toFixed(3);
+alh2 = alh2.toFixed(3);
+document.getElementById("rf").value=" "+fat2;
+document.getElementById("rp").value=" "+pro2;
+document.getElementById("rh").value=" "+car2;
+document.getElementById("ra").value=" "+alh2;
+}
+}
+else{
+alert("Please fill your details properly!");
+}
+}
+</script>
+
+<body>
+<div class='div' align='center'>
+<table id ='tab' align='center' style="width:100%;">
+<tr>
+<td align=center>
+<br>
+<b> Calorie Calculator</b>
+<br><br>
+<form name="frm" action="" class='frms noborders'>
+<table>
+<tr>
+<td class="td" >Age:</td><td>
+<input type="text" name="age" id="age" align="left" size="3" maxlength="2"></td>
+</tr>
+<tr>
+<td class="td">Gender:</td>
+<td><input type="radio" name="gen" id="gen" checked>
+<font color="darkslategray" size="2PX">Male</font><input type="radio" name="gen" id="gen">
+<font color="darkslategray" size="2PX">Female</font></td>
+</tr>
+<tr>
+<td class="td">Cms :</td>
+<td><input type="text" name="cen" id="cen" size="4"></td>
+</tr>
+<tr>
+<td class="td">Weight:</td>
+<td><input type="text" name="weight" id="weight" maxlength="3" size="3"></td>
+</tr>
+<tr>
+<td class="td">Activeness:</td><td>
+<select style='width:100px;' name="active" id="active">
+<option value="1">Sedentary</option>
+<option value="2">Light Active</option>
+<option value="3">Moderately Active</option>
+<option value="4">Very Active</option>
+<option value="5">Extra Active</option>
+</select></td>
+</tr>
+<tr>
+<td colspan='2' align="center">
+<button class='button1' type="button" onclick="cc()">calculate the calorie</button></td>
+</tr>
+</table>
+</form>
+<br><table align="center" border="0" class="frms noborders"><caption><b>Calorie Result</b></caption>
+<tr>
+<td class="td" align="right">Calorie Needed:</td>
+<td><input type="text" id="rc" style="font-size:13px;" size="15" readonly></td>
+<td><select name="caltype" id="caltype" onChange="convert()">
+<option value="g">Grams</option>
+<option value="kg">Kilograms</option>
+</select>
+</td>
+</tr>
+</table>
+<div style="color: darkslategray; font-size:13px;">You Must Intake The Following Daily</div>
+<table class="frms noborders"><tr><td class="td">Fat:</td>
+<td class="td">
+<input type="text" id="rf" style="font-size:13px;" size="10" readonly></td>
+<td><font color="darkslategray" size="2" style='float:right'>
+per day</font></td>
+</tr>
+<tr>
+<td class="td">Protein:</td>
+<td style="color: darkslategray; font-size:13px;">
+<input type="text" id="rp" style="font-size:13px;" size="10" readonly>
+</td>
+<td><font color="darkslategray" size="2" style='float:right'>per day</font>
+</td>
+</tr>
+<tr>
+<td class="td">Carbohydrate:</td>
+<td class="td">
+<input type="text" id="rh" style="font-size:13px;" size="10" readonly></td>
+<td>
+<font color="darkslategray" size="2" style='float:right'>
+per day</font></td>
+</tr>
+<tr>
+<td class="td">Alcohol:</td>
+<td class="td">
+<input type="text" id="ra" style="font-size:13px;" size="10" readonly></td>
+<td><font color="darkslategray" size="2" style='float:right'>per day</font>
+</td>
+</tr>
+</table>
+</tr></td>
+</table>
+</div>
+</body>
+</html>
